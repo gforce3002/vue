@@ -5,6 +5,11 @@ import 'firebase/firestore'
 import 'firebase/auth'
 import 'firebase/storage'
 
+/* const firebase = require("firebase/app")
+require("firebase/firestore")
+require("firebase/auth")
+require("firebase/storage") */
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 // Your web app's Firebase configuration
@@ -19,10 +24,10 @@ const firebaseConfig = {
 
 // Initialize Firebase
 
-const app = firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 const auth = firebase.auth();
 const storage = firebase.storage();
 
-export {app, db, auth, storage}
+export {firebase, db, auth, storage}
