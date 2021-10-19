@@ -11,12 +11,17 @@ const routes = [
     name: 'Home',
     component: () => import('../views/Home.vue'),
     meta:{requireAuth: true}
-  }
-  ,
+  },
   {
     path: '/ingreso',
     name: 'Ingreso',
     component: () => import('../views/Ingreso.vue')
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('../views/Admin.vue'),
+    meta:{requireAuth: true}
   }
 ]
 

@@ -32,7 +32,7 @@
 
 <script>
 import {firebase, auth, db} from '@/plugins/firebase'
-import {mapMutations} from 'vuex'
+import {mapActions, mapMutations} from 'vuex'
 import router from '../router'
 export default {
     data(){
@@ -43,6 +43,7 @@ export default {
     methods: {
     
        ...mapMutations(['nuevoUsuario']),
+       ...mapActions(['setUsuario']),
         btngoogle(){
             console.log("google")
             const provider = new firebase.auth.GoogleAuthProvider()
@@ -58,15 +59,7 @@ export default {
             try {
                 const result = await firebase.auth().signInWithPopup(provider)
                 const user = result.user; 
-                /**agregamos el usuario en la base de datos de firestore */
-                const usuario = {
-                    nombre: user.displayName,
-                    email: user.email,
-                    uid: user.uid,
-                    foto: user.photoURL
-                }
-                await db.collection('usuarios').doc(usuario.uid).set(usuario)
-                console.log("Usuaurio guardado en db")
+                this.setUsuario(user)
                 router.push({name:'Home'})
             } catch (error) {
               console.log(error)  
