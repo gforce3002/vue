@@ -3,14 +3,25 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
-import 'roboto-fontface/css/roboto/roboto-fontface.css'
-import '@mdi/font/css/materialdesignicons.css'
+import {auth} from '@/plugins/firebase'
+
 
 Vue.config.productionTip = false
 
-new Vue({
-  router,
-  store,
-  vuetify,
-  render: h => h(App)
-}).$mount('#app')
+//Esta funcion permite comprobar si hay un usuario
+//Logeado
+
+auth.onAuthStateChanged(function(user){
+  if(user){
+    console.log(user.displayName)
+    store.dispatch('setUsuario', user)
+  }
+  new Vue({
+    router,
+    store,
+    vuetify,
+    render: h => h(App)
+  }).$mount('#app')
+})
+
+

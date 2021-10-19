@@ -23,15 +23,15 @@
           src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
           width="100"
         /> -->
-        <h1>Vue</h1>
+        <h1 ><router-link :to="{name:'Home'}" class="white--text">Vue</router-link></h1>
+        
       </div>
 
       <v-spacer></v-spacer>
 
       <v-btn
-        href="#"
-        target="_blank"
         text
+        @click="cerrarSession()"
       >
         <span class="mr-2">Cerrar session</span>
         <v-icon>mdi-logout</v-icon>
@@ -48,12 +48,15 @@
 </template>
 
 <script>
-
+import {mapActions} from 'vuex'
 export default {
   name: 'App',
 
   data: () => ({
     //
   }),
+  methods:{
+    ...mapActions(['cerrarSession'])
+  }
 };
 </script>
