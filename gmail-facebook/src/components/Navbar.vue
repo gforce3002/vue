@@ -8,7 +8,7 @@
                 </router-link>
             </v-toolbar-title>
             <v-spacer></v-spacer>
-             <v-btn @click="cerrarSession()" color="warning" v-if="existeUsuario">
+             <v-btn @click="cerrarSession()" color="warning">
                     <span class="mr-2">Cerrar sessión</span>
                     <v-icon>mdi-logout</v-icon>
                 </v-btn>
@@ -33,7 +33,7 @@
                         <v-img :src="usuario.foto"></v-img>
                     </v-avatar>   
                 </v-flex>
-                <v-flex v-if="existeUsuario">
+                <v-flex>
                     <p class="text-center white--text subheading mt-1">{{usuario.nombre}}</p>
                 </v-flex>
                 
@@ -64,6 +64,7 @@ export default {
                 {title: "Dashboard", icon:'mdi-view-dashboard', to:{name:"Home"}},
                 {title: "Account", icon:'mdi-account-box', to:{name:"Ingreso"}},
                 {title: "Admin", icon:'mdi-gavel', to:{name:"Admin"}},
+                {title: "Chat", icon:'mdi-chat', to:{name:"Chat"}},
             ]
         }
     },

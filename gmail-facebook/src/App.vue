@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Navbar v-if="usuario != '' "/>
+    <Navbar v-if="existeUsuario"/>
 
     <v-main>
       <v-container>

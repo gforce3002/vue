@@ -12,9 +12,10 @@ export default new Vuex.Store({
   },
   mutations: {
     nuevoUsuario(state, payload){
-      state.usuario = payload
       if(payload === null){
         state.usuario=''
+      }else{
+        state.usuario = payload
       }
     }
   },
@@ -23,7 +24,7 @@ export default new Vuex.Store({
       try {
         const doc = await db.collection('usuarios').doc(payload.uid).get()
         if(doc.exists){
-          //console.log(doc.data())
+          
           commit('nuevoUsuario', doc.data())
         }else{
           const usuario = {
@@ -49,7 +50,7 @@ export default new Vuex.Store({
   },
   getters:{
     existeUsuario(state){
-      if(state.usuario === null){
+      if(state.usuario === ''){
         return false
       }else{
         return true
