@@ -5,7 +5,8 @@ import store from './store'
 import vuetify from './plugins/vuetify'
 
 import axios from 'axios'
-Vue.use(axios)
+import Vueaxios from 'vue-axios'
+Vue.use(Vueaxios, axios)
 
 axios.defaults.baseURL = "http://localhost:8080/api"
 
