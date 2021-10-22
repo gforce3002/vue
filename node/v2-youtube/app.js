@@ -2,9 +2,24 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors'
 import path from 'path';
+import mongoose from 'mongoose';
 
 const app = express();
 const port= 8080;
+/**conexion a la base de datos */
+const uri = "mongodb://localhost:27017/udemy"
+const options = {
+    useNewUrlParser: true,
+    //useCreateIndex: true,
+    useUnifiedTopology: true
+
+}
+mongoose.connect(uri,options).then(
+    ()=>{
+        console.log("conectado a la base de datos")
+    },
+    err=>{console.log(err)}
+)
 
 //MIDDLEWARE
 /**Morgan se utiliza para visualizar las peticiones que hagan el usuario 
@@ -25,7 +40,7 @@ app.use(express.urlencoded({extended:true}))
 /* app.get('/', function(req,res){
     res.send("Hola mundoonno")
 }) */
-
+app.use('/api', require('./routes/nota'))
 
 //Middleware para Vue.js router modo history
 /**Esta linea sirve para visualizar todas las paginas o las vistas ui del sitio web
