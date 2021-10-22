@@ -4,24 +4,25 @@
       <v-col>
         <v-card elevation="6" class="mt-10">
           <v-card-text>
-            <v-btn  color="blue" dark fab absolute right top :to="{name: 'NotasNew'}">+</v-btn>
+            <v-btn  color="blue" dark fab absolute right top :to="{name: 'NotasNew'}">
+                <v-icon>add_circle_outline</v-icon></v-btn>
            <v-simple-table>
               <template v-slot:default>
                 <thead>
                   <tr>
-                    <th class="text-left" width="">
+                    <th class="text-left" width="5%">
                       #
                     </th>
-                    <th class="text-left">
+                    <th class="text-left" width="35%">
                       Nombre
                     </th>
-                    <th class="text-left">
+                    <th class="text-left" width="40%">
                       Descripcion
                     </th>
-                    <th class="text-left">
+                    <th class="text-left" width="10%">
                       Fecha
                     </th>
-                    <th class="text-left">
+                    <th class="text-left" width="10%">
                       Acciones
                     </th>
                   </tr>
@@ -34,8 +35,15 @@
                     <td>{{ index }}</td>
                     <td>{{ item.nombre }}</td>
                     <td>{{ item.descripcion }}</td>
-                    <td>{{ item.fecha }}</td>
-                    <td></td>
+                    <td>{{ item.date }}</td>
+                    <td class="text-center">
+                        <v-btn fab small color="pink" class="mr-2 white--text">
+                            <v-icon >mode_edit_outline</v-icon>
+                        </v-btn>
+                        <v-btn fab small color="error" class="mr-2">
+                            <v-icon>delete_outline</v-icon>
+                        </v-btn>
+                    </td>
                   </tr>
                 </tbody>
               </template>
@@ -60,12 +68,13 @@ export default {
     },
     methods:{
       listarNotas(){
-        this.axios.get('/notas')
+        this.axios.get('/nota')
         .then(res =>{
-          this.notas = res.data()
-          console.log(res.data())
+          this.notas = res.data
         })
-        .catch(e => {console.log(e.response)})
+        .catch(e => {
+            this.$alert.showAlertSimple('error',e);
+            console.log(e)})
       }
     },
     created(){
