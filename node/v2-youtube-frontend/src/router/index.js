@@ -24,6 +24,11 @@ const routes = [
     path: '/notas/new',
     name: 'NotasNew',
     component: () => import(/* webpackChunkName: "about" */ '../views/Notas/_id.vue')
+  },
+  {
+    path: '/notas/edit/:id',
+    name: 'NotasEdit',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Notas/_id.vue')
   }
 
 ]

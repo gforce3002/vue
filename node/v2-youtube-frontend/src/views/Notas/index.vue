@@ -32,15 +32,15 @@
                     v-for="(item, index) in notas"
                     :key="index"
                   >
-                    <td>{{ index }}</td>
+                    <td>{{ index +1}}</td>
                     <td>{{ item.nombre }}</td>
                     <td>{{ item.descripcion }}</td>
                     <td>{{ item.date }}</td>
                     <td class="text-center">
-                        <v-btn fab small color="pink" class="mr-2 white--text">
+                        <v-btn fab small color="pink" class="mr-2 white--text" :to="`/notas/edit/${item._id}`">
                             <v-icon >mode_edit_outline</v-icon>
                         </v-btn>
-                        <v-btn fab small color="error" class="mr-2">
+                        <v-btn fab small color="error" class="mr-2" @click="btnEliminar(item._id)">
                             <v-icon>delete_outline</v-icon>
                         </v-btn>
                     </td>
@@ -75,6 +75,23 @@ export default {
         .catch(e => {
             this.$alert.showAlertSimple('error',e);
             console.log(e)})
+      },
+      btnEliminar(id){
+        if(confirm("Estas seguro de eliminar la nota")){
+          console.log(id)
+          this.$loader.activate();
+          this.axios.delete(`/nota/${id}`)
+          .then(res=>{
+            this.notas = this.notas.filter(e=> e._id != id)
+            this.$alert.showAlertSimple('success',"Nota eliminada")
+          })
+          .catch(error => {
+              this.$alert.showAlertSimple('error',error.response.data)
+          })
+          .finally(()=>{
+            this.$loader.deactivate();
+          })
+        }
       }
     },
     created(){
