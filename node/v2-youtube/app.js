@@ -7,7 +7,8 @@ import mongoose from 'mongoose';
 const app = express();
 const port= 8080;
 /**conexion a la base de datos */
-const uri = "mongodb://localhost:27017/udemy"
+//const uri = "mongodb://localhost:27017/udemy"
+const uri = "mongodb://gforce3002:9804520k@cluster0-shard-00-00.dhw1u.mongodb.net:27017,cluster0-shard-00-01.dhw1u.mongodb.net:27017,cluster0-shard-00-02.dhw1u.mongodb.net:27017/udemy?ssl=true&replicaSet=atlas-r4vmww-shard-0&authSource=admin&retryWrites=true&w=majority"
 const options = {
     useNewUrlParser: true,
     //useCreateIndex: true,
