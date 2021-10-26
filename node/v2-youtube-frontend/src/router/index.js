@@ -29,6 +29,11 @@ const routes = [
     path: '/notas/edit/:id',
     name: 'NotasEdit',
     component: () => import(/* webpackChunkName: "about" */ '../views/Notas/_id.vue')
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Login/Login.vue')
   }
 
 ]
