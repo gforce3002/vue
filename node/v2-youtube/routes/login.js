@@ -10,13 +10,14 @@ router.post('/', async (req, res)=>{
     const body = req.body
 
     try {
-        console.log(body)
+        
         const UserDB = await User.findOne({email: body.email})
-        if(!UserDB || !bcrypt.compareSync(body.password, UserDB.pass)){
+        
+        if(!UserDB || !bcrypt.compareSync(body.pass, UserDB.pass)){
             return res.status(400).json({
                 mensaje:"Usuario o contraseña incorrectos"
             })    
-        }else{
+         }else{
             /* Generar el token */
             
             const token = jwt.sign({data: UserDB},
@@ -26,7 +27,7 @@ router.post('/', async (req, res)=>{
                 data: UserDB,
                 token: token
             })
-        }
+         }
     } catch (error) {
         return res.status(400).json({
             mensaje:"Ocurrio un error",

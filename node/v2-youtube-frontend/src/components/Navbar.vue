@@ -21,7 +21,7 @@
         <span class="mr-2">Ingresar</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
-      <v-btn  text>
+      <v-btn  text @click="cerrarsession()">
         Salir
       </v-btn>
     </v-app-bar>
@@ -78,9 +78,13 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 export default {
     data: () => ({
     drawer:true
   }),
+  methods:{
+    ...mapActions(['cerrarsession'])
+  }
 }
 </script>

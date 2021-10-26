@@ -56,6 +56,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
     name: 'Home',
     data(){
@@ -63,11 +64,19 @@ export default {
         notas : []
       }
     },
+    computed:{
+      ...mapState(['token'])
+    },
     components: {
       
     },
     methods:{
       listarNotas(){
+        let config = {
+          headers: {
+            token: this.token
+          }
+        }
         this.axios.get('/nota')
         .then(res =>{
           this.notas = res.data

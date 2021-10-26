@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Navbar />
+    <Navbar v-if="estaActivo"/>
     <v-main>
       <router-view/>
     </v-main>
@@ -13,6 +13,7 @@
 import Navbar from './components/Navbar.vue'
 import Loader from './components/utilities/Loader.vue'
 import Alert from './components/utilities/Alert.vue'
+import {mapState,mapGetters} from 'vuex'
 export default {
   name: 'App',
 
@@ -22,6 +23,10 @@ export default {
     Loader,
     Alert
 
+  },
+  computed:{
+    ...mapState(['session']),
+    ...mapGetters(['estaActivo'])
   }
 };
 </script>
