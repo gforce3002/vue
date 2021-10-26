@@ -7,8 +7,8 @@ import mongoose from 'mongoose';
 const app = express();
 const port= 8080;
 /**conexion a la base de datos */
-//const uri = "mongodb://localhost:27017/udemy"
-const uri = "mongodb://gforce3002:9804520k@cluster0-shard-00-00.dhw1u.mongodb.net:27017,cluster0-shard-00-01.dhw1u.mongodb.net:27017,cluster0-shard-00-02.dhw1u.mongodb.net:27017/udemy?ssl=true&replicaSet=atlas-r4vmww-shard-0&authSource=admin&retryWrites=true&w=majority"
+const uri = "mongodb://localhost:27017/udemy"
+//const uri = "mongodb://gforce3002:9804520k@cluster0-shard-00-00.dhw1u.mongodb.net:27017,cluster0-shard-00-01.dhw1u.mongodb.net:27017,cluster0-shard-00-02.dhw1u.mongodb.net:27017/udemy?ssl=true&replicaSet=atlas-r4vmww-shard-0&authSource=admin&retryWrites=true&w=majority"
 const options = {
     useNewUrlParser: true,
     //useCreateIndex: true,
@@ -41,7 +41,9 @@ app.use(express.urlencoded({extended:true}))
 /* app.get('/', function(req,res){
     res.send("Hola mundoonno")
 }) */
+app.use('/login', require('./routes/login'))
 app.use('/api', require('./routes/nota'))
+app.use('/api', require('./routes/user'))
 
 //Middleware para Vue.js router modo history
 /**Esta linea sirve para visualizar todas las paginas o las vistas ui del sitio web
