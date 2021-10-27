@@ -14,13 +14,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn
-        href="#"
-        text
-      >
-        <span class="mr-2">Ingresar</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+      
       <v-btn  text @click="cerrarsession()">
         Salir
       </v-btn>

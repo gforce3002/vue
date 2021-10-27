@@ -35,17 +35,34 @@ router
   }
 })
 //obtenemos todas las notas
+// .get('/nota',verificarAuth, async(req, res)=>{
+//     try {
+//       const notaDB = await Nota.find({usuarioId: req.usuario._id, activo:true})
+//       res.status(200).json(notaDB)   
+//     } catch (error) {
+//       return res.status(400).json({
+//           mensaje:"no hay registros",
+//           error
+//       })
+//     }
+//   })
 .get('/nota',verificarAuth, async(req, res)=>{
-    try {
-      const notaDB = await Nota.find({usuarioId: req.usuario._id, activo:true})
-      res.status(200).json(notaDB)   
-    } catch (error) {
-      return res.status(400).json({
-          mensaje:"no hay registros",
-          error
-      })
-    }
-  })
+  //variables para la paginacion
+  const page = Number(req.query.page) || 1
+  const limit = 10;
+  const skip = (page - 1) * limit
+  
+  try {
+    const notaDB = await Nota.find({usuarioId: req.usuario._id, activo:true}).limit(limit).skip(skip);
+    const totalDoc = await Nota.find({usuarioId: req.usuario._id, activo:true}).countDocuments();
+    res.status(200).json({notaDB, totalDoc})   
+  } catch (error) {
+    return res.status(400).json({
+        mensaje:"no hay registros",
+        error
+    })
+  }
+})  
 .delete('/nota/:_id', async(req, res)=>{
     const id = req.params
     try {

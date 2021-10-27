@@ -32,7 +32,7 @@
                     v-for="(item, index) in notas"
                     :key="index"
                   >
-                    <td>{{ index +1}}</td>
+                    <td>{{ ((page-1)*limitpage) + index +1}}</td>
                     <td>{{ item.nombre }}</td>
                     <td>{{ item.descripcion }}</td>
                     <td>{{ item.date }}</td>
@@ -49,6 +49,15 @@
               </template>
             </v-simple-table>
           </v-card-text>
+          <v-card-text>
+            <v-pagination
+              v-model="page"
+              class="my-4"
+              :length="pages"
+            >
+              
+            </v-pagination>
+          </v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -57,11 +66,15 @@
 
 <script>
 import {mapState} from 'vuex'
+import router from '../../router'
 export default {
     name: 'Home',
     data(){
       return{
-        notas : []
+        notas : [],
+        page:1,
+        pages:0,
+        limitpage:10
       }
     },
     computed:{
@@ -70,16 +83,34 @@ export default {
     components: {
       
     },
+    watch:{
+      "page":{
+        immediate: true,
+        handler(page){
+          this.pagination()
+        }
+      }
+    },
     methods:{
+      pagination(){
+        router.push({ query: { page:  this.page} })
+        this.listarNotas()
+      },
       listarNotas(){
         let config = {
           headers: {
             token: this.token
+          },
+          params:{
+            page:this.page
           }
         }
-        this.axios.get('/nota')
+        this.axios.get('/nota', config)
         .then(res =>{
-          this.notas = res.data
+          console.log(res.data)
+          this.notas = res.data.notaDB
+          this.pages = Math.ceil(res.data.totalDoc/this.limitpage)
+          
         })
         .catch(e => {
             this.$alert.showAlertSimple('error',e);

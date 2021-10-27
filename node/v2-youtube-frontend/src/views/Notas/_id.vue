@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
     data(){
         return{
@@ -38,8 +39,13 @@ export default {
             this.$router.push({name:"Notas"})
         },
         AddNota(){
+             let config = {
+                headers: {
+                    token: this.token
+                }
+            }
             this.$loader.activate();
-            this.axios.post('/nueva-nota',this.nota)
+            this.axios.post('/nueva-nota', this.nota, config)
             .then(res=>{
                 this.$alert.showAlertSimple('success',"La nota se agrego correctamente");
                 this.btnRegresar();
@@ -95,6 +101,9 @@ export default {
             this.edit = true;
             this.getOneNote(this.$route.params.id);
         }
+    },
+    computed:{
+        ...mapState(['token'])
     }
 
 }

@@ -13,7 +13,7 @@
 import Navbar from './components/Navbar.vue'
 import Loader from './components/utilities/Loader.vue'
 import Alert from './components/utilities/Alert.vue'
-import {mapState,mapGetters} from 'vuex'
+import {mapState,mapGetters, mapActions} from 'vuex'
 export default {
   name: 'App',
 
@@ -27,6 +27,12 @@ export default {
   computed:{
     ...mapState(['session']),
     ...mapGetters(['estaActivo'])
+  },
+  methods:{
+    ...mapActions(['leertoken'])
+  },
+  created(){
+    this.leertoken();
   }
 };
 </script>
